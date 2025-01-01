@@ -3,7 +3,7 @@ module.exports = {
     title: "Your Site Title",
     description: "Your site description.",
     author: "Your Name",
-    image: "/images/your-image.jpg",
+    image: "/images/your-image.jpg", // Your default image
     siteUrl: "https://your-site-url.com",
     social: {
       twitter: "your-twitter-handle",
@@ -20,7 +20,7 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-plugin-google-fonts`,
+      resolve: "gatsby-plugin-google-fonts",
       options: {
         fonts: [
           "Montserrat:400,700",
@@ -45,12 +45,13 @@ module.exports = {
             },
           },
           {
-            resolve: `gatsby-remark-images`,
+            resolve: "gatsby-remark-images",
             options: {
               maxWidth: 1360,
-              withWebp: true,
+              withWebp: true, // Enable WebP format
               quality: 75,
               showCaptions: false,
+              wrapperStyle: `margin: 7vw 0;`,
             },
           },
           `gatsby-remark-prismjs`,
@@ -62,7 +63,20 @@ module.exports = {
     `gatsby-plugin-offline`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sitemap`,
-    `gatsby-plugin-purgecss`,
-    `gatsby-plugin-postcss`,
+    {
+      resolve: `gatsby-plugin-purgecss`,
+      options: {
+        printRejected: true, // Print removed selectors
+      },
+    },
+    {
+      resolve: `gatsby-plugin-postcss`,
+      options: {
+        postCssPlugins: [
+          require("autoprefixer"),
+          require("postcss-preset-env"),
+        ],
+      },
+    },
   ],
 };

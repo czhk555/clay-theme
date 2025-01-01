@@ -19,7 +19,6 @@ function SEO({ description, lang, meta, keywords, title, image }) {
       }
     `
   );
-
   const metaDescription = description || site.siteMetadata.description;
   const img = image || site.siteMetadata.image;
 

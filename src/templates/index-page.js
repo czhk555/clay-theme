@@ -10,6 +10,7 @@ const IndexPage = ({ data }) => {
   const siteTitle = data.site.siteMetadata.title;
   const social = data.site.siteMetadata.social;
   const posts = data.allMarkdownRemark.edges;
+  let postCounter = 0;
 
   return (
     <Layout title={siteTitle} social={social}>
@@ -22,14 +23,17 @@ const IndexPage = ({ data }) => {
       <div className="post-feed">
         {/* 使用 Suspense 组件包裹懒加载的 PostCard 组件 */}
         <Suspense fallback={<div>Loading posts...</div>}>
-          {posts.map(({ node }, index) => (
-            <PostCard
-              key={node.fields.slug}
-              count={index + 1} // Adjusted index for count
-              node={node}
-              postClass="post"
-            />
-          ))}
+          {posts.map(({ node }) => {
+            postCounter++;
+            return (
+              <PostCard
+                key={node.fields.slug}
+                count={postCounter}
+                node={node}
+                postClass="post"
+              />
+            );
+          })}
         </Suspense>
       </div>
     </Layout>

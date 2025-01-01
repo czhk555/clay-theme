@@ -1,3 +1,6 @@
-export const onClientEntry = () => {
-  console.log("Gatsby is ready to serve your site!");
-};
+// custom typefaces
+import "typeface-montserrat"
+import "typeface-merriweather"
+import "typeface-nunito"
+import "typeface-alegreya"
+
