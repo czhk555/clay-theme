@@ -14,8 +14,8 @@
     "gatsby-plugin-netlify": "^5.0.0",
     "gatsby-plugin-purgecss": "^5.0.0",
     "gatsby-plugin-postcss": "^5.0.0",
-    "react": "^18.0.0",                // 添加 React
-    "react-dom": "^18.0.0"            // 添加 React DOM
+    "react": "^18.0.0",                // React
+    "react-dom": "^18.0.0"            // React DOM
   },
   "devDependencies": {
     "eslint": "^8.0.0",

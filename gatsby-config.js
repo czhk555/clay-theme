@@ -3,7 +3,7 @@ module.exports = {
     title: "Your Site Title",
     description: "Your site description.",
     author: "Your Name",
-    image: "/images/your-image.jpg", // Your default image
+    image: "/images/your-image.jpg",
     siteUrl: "https://your-site-url.com",
     social: {
       twitter: "your-twitter-handle",
@@ -62,7 +62,7 @@ module.exports = {
     `gatsby-plugin-offline`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sitemap`,
-    `gatsby-plugin-purgecss`,  // Ensure CSS is purged for production
-    `gatsby-plugin-postcss`,  // PostCSS for additional optimizations
+    `gatsby-plugin-purgecss`,
+    `gatsby-plugin-postcss`,
   ],
 };
