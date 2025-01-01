@@ -13,3 +13,6 @@ static/admin/*.bundle.*
 
 # Dependencies
 /node_modules
+
+# Build files
+.env.*

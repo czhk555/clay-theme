@@ -33,20 +33,13 @@ module.exports = {
         name: `pages`,
       },
     },
-    // {
-    //   resolve: "gatsby-source-filesystem",
-    //   options: {
-    //     path: `${__dirname}/static/img`,
-    //     name: "uploads",
-    //   },
-    // },
-    // {
-    //   resolve: "gatsby-source-filesystem",
-    //   options: {
-    //     path: `${__dirname}/src/img`,
-    //     name: "images",
-    //   },
-    // },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/src/img`,
+        name: "images",
+      },
+    },
     `gatsby-transformer-sharp`,
     {
       resolve: `gatsby-plugin-sharp`,
@@ -175,13 +168,14 @@ module.exports = {
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sitemap`,
     {
-      resolve: 'gatsby-plugin-svgr',
+      resolve: '@svgr/webpack',
       options: {
-        svgo: true,
         svgoConfig: {
           plugins: [
-            { name: 'removeViewBox', active: false },
-            { name: 'removeDimensions', active: true }
+            {
+              name: 'removeViewBox',
+              active: false
+            }
           ]
         }
       }

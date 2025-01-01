@@ -105,3 +105,14 @@
     color: inherit;
     text-decoration: none;
 }
+
+/* 优化图片相关链接样式 */
+.site-head-logo img {
+    max-height: 40px;
+    width: auto;
+}
+
+.site-foot img {
+    max-height: 30px;
+    width: auto;
+}
