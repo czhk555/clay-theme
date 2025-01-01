@@ -61,58 +61,57 @@ export default IndexPage
 export const IndexPageQuery = graphql`
   query IndexPage {
     site {
-        siteMetadata {
-          title
-          social{
-            twitter
-            facebook
-          }    
-        }
+      siteMetadata {
+        title
+        social {
+          twitter
+          facebook
+        }    
       }
-      markdownRemark(frontmatter: {templateKey: {eq: "index-page"}}) {
-        frontmatter {
-          title
-          description
-          thumbnail {
-            childImageSharp {
-              gatsbyImageData(
-                width: 1360
-                formats: [AUTO, WEBP, AVIF]
-                placeholder: BLURRED
-                layout: CONSTRAINED
-              )
-            }
+    }
+    markdownRemark(frontmatter: {templateKey: {eq: "index-page"}}) {
+      frontmatter {
+        title
+        description
+        thumbnail {
+          childImageSharp {
+            gatsbyImageData(
+              width: 1360
+              formats: [AUTO, WEBP, AVIF]
+              placeholder: BLURRED
+              layout: CONSTRAINED
+            )
           }
         }
-        
       }
-      allMarkdownRemark(
-        filter: {frontmatter: {pagetype: {eq: "main"}}}
-        limit: 30
-        sort: {frontmatter: {number: ASC}}
-      ) {
-        edges {
-          node {
-            fields {
-              slug
-            }
-            frontmatter {
-              date(formatString: "MMMM DD,YYYY")
-              title
-              description
-              thumbnail {
-                childImageSharp {
-                  gatsbyImageData(
-                    width: 1360
-                    formats: [AUTO, WEBP, AVIF]
-                    placeholder: BLURRED
-                    layout: CONSTRAINED
-                  )
-                }
+    }
+    allMarkdownRemark(
+      filter: {frontmatter: {pagetype: {eq: "main"}}}
+      limit: 30
+      sort: {frontmatter: {number: ASC}}
+    ) {
+      edges {
+        node {
+          fields {
+            slug
+          }
+          frontmatter {
+            date(formatString: "MMMM DD,YYYY")
+            title
+            description
+            thumbnail {
+              childImageSharp {
+                gatsbyImageData(
+                  width: 1360
+                  formats: [AUTO, WEBP, AVIF]
+                  placeholder: BLURRED
+                  layout: CONSTRAINED
+                )
               }
             }
           }
         }
       }
+    }
   }
 `;

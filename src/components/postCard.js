@@ -1,25 +1,35 @@
 import React from "react"
 import { Link } from "gatsby"
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
-export default props => (
-  <article
-    className={`post-card ${props.count % 3 === 0 && `post-card-large`} ${
-      props.postClass
-    } ${props.node.frontmatter.thumbnail ? `with-image` : `no-image`}`}
-    style={
-      props.node.frontmatter.thumbnail && {
-        backgroundImage: `url(${
-          props.node.frontmatter.thumbnail.childImageSharp.fluid.src
-        })`,
-      }
-    }
-  >
-    <Link to={props.node.fields.slug.split('/').slice(2, -1).join('/') === '' ? '/' : `/${props.node.fields.slug.split('/').slice(2, -1).join('/')}`} className="post-card-link">
-      <div className="post-card-content">
-        <h2 className="post-card-title">
-          {props.node.frontmatter.title }
-        </h2>
-      </div>
-    </Link>
-  </article>
-)
+const PostCard = ({ count, node, postClass }) => {
+  const image = getImage(node.frontmatter.thumbnail)
+
+  return (
+    <article
+      className={`post-card ${postClass} ${count % 3 === 0 && `post-card-large`
+        }`}
+    >
+      <Link to={node.fields.slug} className="post-card-link">
+        <div className="post-card-content">
+          <GatsbyImage
+            image={image}
+            alt={node.frontmatter.title}
+            className="post-card-image"
+            loading="lazy"
+          />
+          <div className="post-card-details">
+            <header className="post-card-header">
+              <h2 className="post-card-title">{node.frontmatter.title}</h2>
+            </header>
+            <section className="post-card-excerpt">
+              <p>{node.frontmatter.description}</p>
+            </section>
+          </div>
+        </div>
+      </Link>
+    </article>
+  )
+}
+
+export default PostCard
