@@ -3,7 +3,7 @@ module.exports = {
   options: {
     postCssPlugins: [
       require("autoprefixer"),
-      require("postcss-preset-env"),
+      require("postcss-preset-env"), // 支持现代 CSS 特性
     ],
   },
 };

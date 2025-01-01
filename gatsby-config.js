@@ -1,14 +1,14 @@
 module.exports = {
   siteMetadata: {
-    title: 'Your Site Title',
-    description: 'Your site description.',
-    author: 'Your Name',
-    image: '/images/your-image.jpg', // Your default image
-    siteUrl: 'https://your-site-url.com',
+    title: "Your Site Title",
+    description: "Your site description.",
+    author: "Your Name",
+    image: "/images/your-image.jpg", // Your default image
+    siteUrl: "https://your-site-url.com",
     social: {
-      twitter: 'your-twitter-handle',
-      facebook: 'your-facebook-handle',
-      github: 'your-github-handle',
+      twitter: "your-twitter-handle",
+      facebook: "your-facebook-handle",
+      github: "your-github-handle",
     },
   },
   plugins: [
@@ -65,4 +65,4 @@ module.exports = {
     `gatsby-plugin-purgecss`,  // Ensure CSS is purged for production
     `gatsby-plugin-postcss`,  // PostCSS for additional optimizations
   ],
-}
+};
