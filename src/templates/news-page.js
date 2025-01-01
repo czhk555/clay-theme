@@ -46,51 +46,19 @@ const WorkPage = ({ data }) => {
 }
 export default WorkPage
 export const WorkPageQuery = graphql`
-query IndexPage {
-  site {
-    siteMetadata {
-      title
-      social{
-        twitter
-        facebook
-      }
-    }
-  }
-  markdownRemark(frontmatter: {templateKey: {eq: "news-page"}}) {
+query NewsPage($id: String!) {
+  markdownRemark(id: { eq: $id }) {
     frontmatter {
       title
       description
       thumbnail {
         childImageSharp {
-          fluid(maxWidth: 1360) {
-            ...GatsbyImageSharpFluid
-          }
-        }
-      }
-    }
-    
-  }
-  allMarkdownRemark(
-    filter: {frontmatter: {templateKey: {eq: "blog-post"}}}
-    limit: 30
-    sort: {frontmatter: {date: DESC}}
-  ) {
-    edges {
-      node {
-        fields {
-          slug
-        }
-        frontmatter {
-          date(formatString: "DD:MM:YYYY hh:mm a")
-          title
-          description
-          thumbnail {
-            childImageSharp {
-              fluid(maxWidth: 1360) {
-                ...GatsbyImageSharpFluid
-              }
-            }
-          }
+          gatsbyImageData(
+            width: 1360
+            formats: [AUTO, WEBP, AVIF]
+            placeholder: BLURRED
+            layout: CONSTRAINED
+          )
         }
       }
     }

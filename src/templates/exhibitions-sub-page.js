@@ -78,26 +78,19 @@ const BlogPostTemplate = (props) => {
 export default BlogPostTemplate
 
 export const pageQuery = graphql`
-  query BlogPostBySlug($slug: String!) {
-    site {
-      siteMetadata {
-        title 
-        social{
-          twitter
-          facebook
-        }
-      }
-    }
-    markdownRemark(fields: { slug: { eq: $slug } }) {
-      id
-      html
+  query ExhibitionsSubPage($id: String!) {
+    markdownRemark(id: { eq: $id }) {
       frontmatter {
         title
-        date(formatString: "MMMM DD, YYYY")
         description
         thumbnail {
           childImageSharp {
-            gatsbyImageData(layout: FULL_WIDTH)
+            gatsbyImageData(
+              width: 1360
+              formats: [AUTO, WEBP, AVIF]
+              placeholder: BLURRED
+              layout: CONSTRAINED
+            )
           }
         }
       }

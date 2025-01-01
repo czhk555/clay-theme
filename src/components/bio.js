@@ -38,20 +38,20 @@ function Bio() {
   );
 }
 
-const bioQuery = graphql`query BioQuery {
-  avatar: file(absolutePath: {regex: "/profile-pic.jpg/"}) {
-    childImageSharp {
-      gatsbyImageData(width: 50, height: 50, layout: FIXED)
-    }
-  }
-  site {
-    siteMetadata {
-      author
-      social {
-        twitter
+export const bioQuery = graphql`
+  query BioQuery {
+    avatar: file(absolutePath: { regex: "/profile-pic.jpg/" }) {
+      childImageSharp {
+        gatsbyImageData(
+          width: 70
+          height: 70
+          formats: [AUTO, WEBP, AVIF]
+          placeholder: BLURRED
+          layout: FIXED
+        )
       }
     }
   }
-}`
+`
 
 export default Bio
