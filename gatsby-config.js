@@ -19,18 +19,6 @@ module.exports = {
         name: "uploads",
       },
     },
-    {
-      resolve: "gatsby-plugin-google-fonts",
-      options: {
-        fonts: [
-          "Montserrat:400,700",
-          "Merriweather:400,400i,700",
-          "Nunito:400,700",
-          "Alegreya:400,700",
-        ],
-        display: "swap",
-      },
-    },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     `gatsby-plugin-image`,
