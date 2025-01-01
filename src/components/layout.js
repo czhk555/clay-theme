@@ -1,131 +1,67 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "gatsby";
 import { useLocation } from "@reach/router";
 
-const Layout = (props) => {
-  const data = useLocation();
-  const { title, children, social } = props;
-  // const path = props&&props.location&&props.location
+const Layout = ({ title, social, children, postClass }) => {
+  const location = useLocation();
+  const [toggleNav, setToggleNav] = useState(false);
 
-  const [toggleNav, setToggleNav] = React.useState(false);
+  const isCurrentPage = (path) => location.pathname.includes(path);
+
   return (
-    <div className={`site-wrapper ${toggleNav ? `site-head-open` : ``}`}>
+    <div className={`site-wrapper ${toggleNav ? "site-head-open" : ""}`}>
       <header className="site-head">
         <div className="site-head-container">
           <a
             className="nav-burger"
-            href={`#`}
+            href="#"
             onClick={() => setToggleNav(!toggleNav)}
           >
-            <div
-              className="hamburger hamburger--collapse"
-              aria-label="Menu"
-              role="button"
-              aria-controls="navigation"
-            >
+            <div className="hamburger">
               <div className="hamburger-box">
                 <div className="hamburger-inner" />
               </div>
             </div>
           </a>
-          <nav id="swup" className="site-head-left">
-            <ul className="nav" role="menu">
-              <li
-                className={`nav-home  ${data.pathname === "/" ? "nav-current" : ""} `}
-                role="menuitem"
-              >
-                <Link to={`/`}>Home</Link>
-              </li>
-              <li
-                className={`nav-home  ${data.pathname.includes("/bio") ? "nav-current" : ""} `}
-                role="menuitem"
-              >
-                <Link to={`/bio`}>Bio</Link>
-              </li>
-              <li
-                className={`nav-home  ${data.pathname.includes("/work") ? "nav-current" : ""} `}
-                role="menuitem"
-              >
-                <Link to={`/work`}>Work</Link>
-              </li>
-              <li
-                className={`nav-home  ${data.pathname.includes("/news") ? "nav-current" : ""} `}
-                role="menuitem"
-              >
-                <Link to={`/news`}>News</Link>
-              </li>
-              <li
-                className={`nav-home  ${data.pathname.includes("/contact") ? "nav-current" : ""} `}
-                role="menuitem"
-              >
-                <Link to={`/contact`}>Contact</Link>
-              </li>
-              <li
-                className={`nav-home  ${data.pathname.includes("/elements") ? "nav-current" : ""} `}
-                role="menuitem"
-              >
-                <Link to={`/elements`}>Elements</Link>
-              </li>
+          <nav className="site-head-left">
+            <ul className="nav">
+              {["/", "/bio", "/work", "/news", "/contact", "/elements"].map((path) => (
+                <li
+                  key={path}
+                  className={`nav-home ${isCurrentPage(path) ? "nav-current" : ""}`}
+                >
+                  <Link to={path}>{path.charAt(1).toUpperCase() + path.slice(2)}</Link>
+                </li>
+              ))}
             </ul>
           </nav>
           <div className="site-head-center">
-            <Link className="site-head-logo" to={`/`}>
+            <Link className="site-head-logo" to="/">
               {title}
             </Link>
           </div>
           <div className="site-head-right">
             <div className="social-links">
-              <Link
-                to={`https://facebook.com/${social.facebook}`}
-                title="Facebook"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Facebook
-              </Link>
-              <Link
-                to={`https://instagram.com/${social.twitter}`}
-                title="Instagram"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Instagram
-              </Link>
-
-              <Link
-                to={`https://github.com/lilxyzz/gatsby-clay`}
-                title="Github"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Github
-              </Link>
+              {["facebook", "twitter", "github"].map((platform) => (
+                <Link
+                  key={platform}
+                  to={`https://${platform}.com/${social[platform]}`}
+                  title={platform.charAt(0).toUpperCase() + platform.slice(1)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {platform.charAt(0).toUpperCase() + platform.slice(1)}
+                </Link>
+              ))}
             </div>
           </div>
         </div>
       </header>
-      <main id="site-main" className="site-main">
-        <div id="swup" className="transition-fade">
-          {children}
-        </div>
-      </main>
+      <main>{children}</main>
       <footer className="site-foot">
-        &copy; {new Date().getFullYear()} <Link to={`/`}>{title}</Link> &mdash;
-        Built by {""}
-        <a
-          href="https://travislord.xyz/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        &copy; {new Date().getFullYear()} <Link to="/">{title}</Link> — Built by
+        <a href="https://travislord.xyz/" target="_blank" rel="noopener noreferrer">
           Travis Lord
-        </a>
-        {""} & {""}
-        <a
-          href="https://github.com/abdulwaqar844"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Abdul Waqar
         </a>
       </footer>
     </div>
