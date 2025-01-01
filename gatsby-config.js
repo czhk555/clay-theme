@@ -51,6 +51,9 @@ module.exports = {
           breakpoints: [750, 1080, 1366, 1920],
           backgroundColor: `transparent`,
         },
+        failOnError: true,
+        stripMetadata: true,
+        defaultQuality: 75,
       },
     },
     `gatsby-plugin-image`,
@@ -80,6 +83,9 @@ module.exports = {
               withAvif: true,
               quality: 75,
               loading: 'lazy',
+              linkImagesToOriginal: false,
+              showCaptions: true,
+              backgroundColor: 'transparent',
             },
           },
           {
@@ -138,8 +144,12 @@ module.exports = {
         background_color: `#ffffff`,
         theme_color: `#ffffff`,
         display: `standalone`,
-        resolve: `gatsby-plugin-manifest`,
         icon: siteConfig.manifest_icon,
+        cache_busting_mode: 'query',
+        include_favicon: true,
+        legacy: true,
+        theme_color_in_head: true,
+        crossOrigin: `use-credentials`,
       },
     },
     `gatsby-plugin-netlify`,
@@ -152,14 +162,31 @@ module.exports = {
             {
               urlPattern: /(\.js$|\.css$|static\/)/,
               handler: 'CacheFirst',
+              options: {
+                cacheName: 'static-resources',
+                expiration: {
+                  maxEntries: 60,
+                  maxAgeSeconds: 24 * 60 * 60 // 24 hours
+                }
+              }
+            },
+            {
+              urlPattern: /^https?:.*\.(png|jpg|jpeg|webp|avif|svg|gif|tiff)$/,
+              handler: 'CacheFirst',
+              options: {
+                cacheName: 'images',
+                expiration: {
+                  maxEntries: 60,
+                  maxAgeSeconds: 24 * 60 * 60 // 24 hours
+                }
+              }
             },
             {
               urlPattern: /^https?:.*\/page-data\/.*\.json/,
               handler: 'NetworkFirst',
-            },
-            {
-              urlPattern: /^https?:.*\.(png|jpg|jpeg|webp|avif|svg|gif|tiff|js|woff|woff2|json|css)$/,
-              handler: 'StaleWhileRevalidate',
+              options: {
+                networkTimeoutSeconds: 3
+              }
             }
           ]
         }
@@ -167,19 +194,6 @@ module.exports = {
     },
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sitemap`,
-    {
-      resolve: '@svgr/webpack',
-      options: {
-        svgoConfig: {
-          plugins: [
-            {
-              name: 'removeViewBox',
-              active: false
-            }
-          ]
-        }
-      }
-    }
   ],
 }
 

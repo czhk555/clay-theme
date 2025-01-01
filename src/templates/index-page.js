@@ -54,6 +54,11 @@ export const pageQuery = graphql`
                   formats: [AUTO, WEBP, AVIF]
                   placeholder: BLURRED
                   layout: CONSTRAINED
+                  transformOptions: {
+                    fit: COVER
+                    cropFocus: ATTENTION
+                  }
+                  quality: 75
                 )
               }
             }

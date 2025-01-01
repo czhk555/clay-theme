@@ -16,3 +16,20 @@ static/admin/*.bundle.*
 
 # Build files
 .env.*
+
+# IDE
+.idea/
+.vscode/
+*.sublime-*
+
+# Logs
+logs
+*.log
+
+# Testing
+coverage/
+.nyc_output/
+
+# Temp files
+.tmp/
+.temp/
