@@ -17,15 +17,6 @@ module.exports = {
     },
   },
   plugins: [
-
-    {
-      // keep as first gatsby-source-filesystem plugin for gatsby image support
-      resolve: "gatsby-source-filesystem",
-      options: {
-        path: `${__dirname}/static/img`,
-        name: "uploads",
-      },
-    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -62,17 +53,9 @@ module.exports = {
       options: {
         plugins: [
           {
-            resolve: "gatsby-remark-relative-images",
-            options: {
-              name: "uploads",
-            },
-          },
-          {
             resolve: "gatsby-remark-copy-linked-files",
             options: {
-              // destinationDir: "public",
               ignoreFileExtensions: [`png`, `jpg`, `jpeg`, `bmp`, `tiff`, `webp`],
-
             },
           },
           {
@@ -95,13 +78,10 @@ module.exports = {
             },
           },
           `gatsby-remark-prismjs`,
-          `gatsby-remark-copy-linked-files`,
           `gatsby-remark-smartypants`,
-
         ],
       },
     },
-
     {
       resolve: "gatsby-plugin-netlify-cms",
       options: {
@@ -128,13 +108,6 @@ module.exports = {
         purgeOnly: ['src/utils/css/']
       }
     },
-    // {
-    //   resolve: `gatsby-plugin-google-analytics`,
-    //   options: {
-    //     //trackingId: `ADD YOUR TRACKING ID HERE`,
-    //   },
-    // },
-    // `gatsby-plugin-feed`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -160,8 +133,8 @@ module.exports = {
         workboxConfig: {
           runtimeCaching: [
             {
-              urlPattern: /(\.js$|\.css$|static\/)/,
-              handler: 'CacheFirst',
+              urlPattern: /\.(?:js|css|static)$/,
+              handler: `CacheFirst`,
               options: {
                 cacheName: 'static-resources',
                 expiration: {
@@ -171,8 +144,8 @@ module.exports = {
               }
             },
             {
-              urlPattern: /^https?:.*\.(png|jpg|jpeg|webp|avif|svg|gif|tiff)$/,
-              handler: 'CacheFirst',
+              urlPattern: /\.(?:png|jpg|jpeg|webp|avif|svg|gif|tiff)$/,
+              handler: `CacheFirst`,
               options: {
                 cacheName: 'images',
                 expiration: {
@@ -182,10 +155,14 @@ module.exports = {
               }
             },
             {
-              urlPattern: /^https?:.*\/page-data\/.*\.json/,
-              handler: 'NetworkFirst',
+              urlPattern: /\/page-data\/.*\.json$/,
+              handler: `NetworkFirst`,
               options: {
-                networkTimeoutSeconds: 3
+                cacheName: 'page-data',
+                expiration: {
+                  maxEntries: 32,
+                  maxAgeSeconds: 24 * 60 * 60 // 24 hours
+                }
               }
             }
           ]

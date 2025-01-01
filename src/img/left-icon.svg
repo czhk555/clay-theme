@@ -5,6 +5,7 @@
 	 width="64px" height="64px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve"
 	 aria-hidden="true" focusable="false">
 	<title>Previous</title>
+	<desc>Previous navigation arrow</desc>
 	<g>
 		<polyline fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="bevel" stroke-miterlimit="10" points="37,15 20,32 
 			37,49 	"/>

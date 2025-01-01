@@ -59,6 +59,9 @@ export const pageQuery = graphql`
                     cropFocus: ATTENTION
                   }
                   quality: 75
+                  breakpoints: [750, 1080, 1366, 1920]
+                  backgroundColor: "transparent"
+                  sizes: "(max-width: 750px) 100vw, (max-width: 1080px) 50vw, 33vw"
                 )
               }
             }
