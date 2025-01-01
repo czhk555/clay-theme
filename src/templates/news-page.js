@@ -1,67 +1,64 @@
 import React from "react";
-// import PropTypes from "prop-types";
 import { graphql } from "gatsby";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import PostCard from "../components/postCard"
 
-// eslint-disable-next-line
 const WorkPage = ({ data }) => {
-  const siteTitle = data.site.siteMetadata.title
-  const social = data.site.siteMetadata.social
-  const posts = data.allMarkdownRemark.edges
-  let postCounter = 0
+  const post = data.markdownRemark
+  const image = getImage(post.frontmatter.thumbnail)
 
   return (
-    <Layout title={siteTitle} social={social}>
+    <Layout>
       <Seo
-        title={data.markdownRemark.frontmatter.title}
-        description={data.markdownRemark.frontmatter.description || ''}
-        image={data.markdownRemark.frontmatter.thumbnail.childImageSharp.fluid.src}
-
+        title={post.frontmatter.title}
+        description={post.frontmatter.description || ''}
+        image={post.frontmatter.thumbnail.childImageSharp.gatsbyImageData.images.fallback.src}
       />
 
-      {data.site.siteMetadata.description && (
-        <header className="page-head">
-          <h2 className="page-head-title">
-            {data.site.siteMetadata.description}
-          </h2>
+      <article className="post-content">
+        <header className="post-content-header">
+          <h1 className="post-content-title">{post.frontmatter.title}</h1>
         </header>
-      )}
-      <div className="post-feed">
-        {posts.map(({ node }) => {
-          postCounter++
-          return (
-            <PostCard
-              key={node.fields.slug}
-              count={postCounter}
-              node={node}
-              postClass={`post`}
+
+        {post.frontmatter.description && (
+          <p className="post-content-excerpt">{post.frontmatter.description}</p>
+        )}
+
+        {image && (
+          <div className="post-content-image">
+            <GatsbyImage
+              image={image}
+              alt={post.frontmatter.title}
+              loading="lazy"
             />
-          )
-        })}
-      </div>
+          </div>
+        )}
+      </article>
     </Layout>
   )
 }
+
 export default WorkPage
+
 export const WorkPageQuery = graphql`
-query NewsPage($id: String!) {
-  markdownRemark(id: { eq: $id }) {
-    frontmatter {
-      title
-      description
-      thumbnail {
-        childImageSharp {
-          gatsbyImageData(
-            width: 1360
-            formats: [AUTO, WEBP, AVIF]
-            placeholder: BLURRED
-            layout: CONSTRAINED
-          )
+  query NewsPage($id: String!) {
+    markdownRemark(id: { eq: $id }) {
+      frontmatter {
+        title
+        description
+        thumbnail {
+          childImageSharp {
+            gatsbyImageData(
+              width: 1360
+              formats: [AUTO, WEBP, AVIF]
+              placeholder: BLURRED
+              layout: CONSTRAINED
+            )
+          }
         }
       }
     }
   }
-}
 `;

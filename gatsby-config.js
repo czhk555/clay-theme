@@ -48,7 +48,18 @@ module.exports = {
     //   },
     // },
     `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
+    {
+      resolve: `gatsby-plugin-sharp`,
+      options: {
+        defaults: {
+          formats: [`auto`, `webp`, `avif`],
+          placeholder: `blurred`,
+          quality: 75,
+          breakpoints: [750, 1080, 1366, 1920],
+          backgroundColor: `transparent`,
+        },
+      },
+    },
     `gatsby-plugin-image`,
     {
       resolve: `gatsby-transformer-remark`,
@@ -73,9 +84,9 @@ module.exports = {
             options: {
               maxWidth: 1360,
               withWebp: true,
-              showCaptions: false,
+              withAvif: true,
               quality: 75,
-              wrapperStyle: `margin: 7vw 0;`,
+              loading: 'lazy',
             },
           },
           {

@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
 import { useStaticQuery, graphql } from "gatsby";
 
-function SEO({ description, lang, meta, keywords, title, image }) {
+const SEO = ({ description, lang, meta, title, image, pathname, canonical, schemaMarkup }) => {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -19,15 +19,19 @@ function SEO({ description, lang, meta, keywords, title, image }) {
             title
             description
             author
-            image
             siteUrl
+            image
           }
         }
       }
     `
   );
+
   const metaDescription = description || site.siteMetadata.description;
-  const img = image || site.siteMetadata.image;
+  const defaultImage = site.siteMetadata.image;
+  const siteUrl = site.siteMetadata.siteUrl;
+  const canonical_url = canonical || `${siteUrl}${pathname || ''}`;
+  const ogImage = image || defaultImage;
 
   return (
     <Helmet
@@ -36,6 +40,16 @@ function SEO({ description, lang, meta, keywords, title, image }) {
       }}
       title={title}
       titleTemplate={`%s | ${site.siteMetadata.title}`}
+      link={
+        canonical
+          ? [
+            {
+              rel: "canonical",
+              href: canonical_url,
+            },
+          ]
+          : []
+      }
       meta={[
         {
           name: `description`,
@@ -46,10 +60,6 @@ function SEO({ description, lang, meta, keywords, title, image }) {
           content: title,
         },
         {
-          property: `og:image`,
-          content: `${site.siteMetadata.siteUrl}${img}`,
-        },
-        {
           property: `og:description`,
           content: metaDescription,
         },
@@ -58,8 +68,12 @@ function SEO({ description, lang, meta, keywords, title, image }) {
           content: `website`,
         },
         {
+          property: `og:image`,
+          content: ogImage,
+        },
+        {
           name: `twitter:card`,
-          content: `summary`,
+          content: `summary_large_image`,
         },
         {
           name: `twitter:creator`,
@@ -73,24 +87,24 @@ function SEO({ description, lang, meta, keywords, title, image }) {
           name: `twitter:description`,
           content: metaDescription,
         },
-      ]
-        .concat(
-          keywords.length > 0
-            ? {
-                name: `keywords`,
-                content: keywords.join(`, `),
-              }
-            : []
-        )
-        .concat(meta)}
-    />
+        {
+          name: `twitter:image`,
+          content: ogImage,
+        },
+      ].concat(meta)}
+    >
+      {schemaMarkup && (
+        <script type="application/ld+json">
+          {JSON.stringify(schemaMarkup)}
+        </script>
+      )}
+    </Helmet>
   );
-}
+};
 
 SEO.defaultProps = {
   lang: `en`,
   meta: [],
-  keywords: [],
   description: ``,
 };
 
@@ -98,8 +112,11 @@ SEO.propTypes = {
   description: PropTypes.string,
   lang: PropTypes.string,
   meta: PropTypes.arrayOf(PropTypes.object),
-  keywords: PropTypes.arrayOf(PropTypes.string),
   title: PropTypes.string.isRequired,
+  image: PropTypes.string,
+  pathname: PropTypes.string,
+  canonical: PropTypes.string,
+  schemaMarkup: PropTypes.object,
 };
 
 export default SEO;
