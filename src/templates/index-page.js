@@ -1,8 +1,10 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import { graphql } from "gatsby";
 import Layout from "../components/layout";
 import Seo from "../components/seo";
-import PostCard from "../components/postCard";
+
+// 使用 React.lazy 来懒加载 PostCard 组件
+const PostCard = lazy(() => import("../components/postCard"));
 
 const IndexPage = ({ data }) => {
   const siteTitle = data.site.siteMetadata.title;
@@ -18,14 +20,17 @@ const IndexPage = ({ data }) => {
         image={data.markdownRemark.frontmatter.thumbnail.childImageSharp.fluid.src}
       />
       <div className="post-feed">
-        {posts.map(({ node }, index) => (
-          <PostCard
-            key={node.fields.slug}
-            count={index + 1} // Adjusted index for count
-            node={node}
-            postClass="post"
-          />
-        ))}
+        {/* 使用 Suspense 组件包裹懒加载的 PostCard 组件 */}
+        <Suspense fallback={<div>Loading posts...</div>}>
+          {posts.map(({ node }, index) => (
+            <PostCard
+              key={node.fields.slug}
+              count={index + 1} // Adjusted index for count
+              node={node}
+              postClass="post"
+            />
+          ))}
+        </Suspense>
       </div>
     </Layout>
   );
