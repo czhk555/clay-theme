@@ -130,42 +130,26 @@ module.exports = {
       resolve: 'gatsby-plugin-offline',
       options: {
         precachePages: ['/'],
+        appendScript: require.resolve(`./src/custom-sw-code.js`),
+        debug: true,
         workboxConfig: {
+          globPatterns: ['**/*.{js,jpg,png,html,css}'],
           runtimeCaching: [
             {
-              urlPattern: /\.(?:js|css|static)$/,
-              handler: `CacheFirst`,
-              options: {
-                cacheName: 'static-resources',
-                expiration: {
-                  maxEntries: 60,
-                  maxAgeSeconds: 24 * 60 * 60 // 24 hours
-                }
-              }
+              urlPattern: /.+\.(js|css|static)/,
+              handler: 'CacheFirst'
             },
             {
-              urlPattern: /\.(?:png|jpg|jpeg|webp|avif|svg|gif|tiff)$/,
-              handler: `CacheFirst`,
-              options: {
-                cacheName: 'images',
-                expiration: {
-                  maxEntries: 60,
-                  maxAgeSeconds: 24 * 60 * 60 // 24 hours
-                }
-              }
+              urlPattern: /.+\.(png|jpg|jpeg|webp|avif|svg|gif|tiff)/,
+              handler: 'CacheFirst'
             },
             {
-              urlPattern: /\/page-data\/.*\.json$/,
-              handler: `NetworkFirst`,
-              options: {
-                cacheName: 'page-data',
-                expiration: {
-                  maxEntries: 32,
-                  maxAgeSeconds: 24 * 60 * 60 // 24 hours
-                }
-              }
+              urlPattern: /\/page-data\/.+\json/,
+              handler: 'NetworkFirst'
             }
-          ]
+          ],
+          skipWaiting: true,
+          clientsClaim: true
         }
       }
     },
