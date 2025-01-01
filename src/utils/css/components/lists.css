@@ -2,17 +2,21 @@
 /* ---------------------------------------------------------- */
 
 ul,
-ol {
+ol,
+dl {
     margin: 0 0 var(--margin) 0;
+}
+
+ol,
+ul {
     padding-left: 1.3em;
     padding-right: 1.5em;
 }
 
-ol ol {
-    margin: 0.5em 0 1em;
-}
-
-ul ul {
+ol ol,
+ul ul,
+ul ol,
+ol ul {
     margin: 0.5em 0 1em;
 }
 
@@ -35,25 +39,13 @@ li {
     line-height: 1.6em;
 }
 
+
 dt {
-    float: left;
-    margin: 0 20px 0 0;
-    width: 120px;
-    color: var(--color-base);
-    font-weight: 500;
-    text-align: right;
+    display: block;
+    font-weight: var(--font-bold);
+    margin: 0 0 calc(var(--margin) * 0.5) 0;
 }
 
 dd {
-    margin: 0 0 5px 0;
-    text-align: left;
-}
-
-/* 添加响应式支持 */
-@media (max-width: 600px) {
-    dt {
-        float: none;
-        width: auto;
-        text-align: left;
-    }
+    margin-left: var(--margin);
 }

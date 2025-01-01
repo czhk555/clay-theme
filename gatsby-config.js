@@ -11,12 +11,21 @@ module.exports = {
     image: siteConfig.image,
     siteUrl: "https://clay-gatsby.netlify.app/",
     social: {
-      twitter: siteConfig.twitter || '',
-      facebook: siteConfig.facebook || '',
-      github: siteConfig.github || '',
+      twitter: siteConfig.twitter,
+      facebook: siteConfig.facebook,
+      github: siteConfig.github,
     },
   },
   plugins: [
+
+    {
+      // keep as first gatsby-source-filesystem plugin for gatsby image support
+      resolve: "gatsby-source-filesystem",
+      options: {
+        path: `${__dirname}/static/img`,
+        name: "uploads",
+      },
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -24,38 +33,39 @@ module.exports = {
         name: `pages`,
       },
     },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `${__dirname}/src/img`,
-        name: "images",
-      },
-    },
+    // {
+    //   resolve: "gatsby-source-filesystem",
+    //   options: {
+    //     path: `${__dirname}/static/img`,
+    //     name: "uploads",
+    //   },
+    // },
+    // {
+    //   resolve: "gatsby-source-filesystem",
+    //   options: {
+    //     path: `${__dirname}/src/img`,
+    //     name: "images",
+    //   },
+    // },
     `gatsby-transformer-sharp`,
-    {
-      resolve: `gatsby-plugin-sharp`,
-      options: {
-        defaults: {
-          formats: [`auto`, `webp`, `avif`],
-          placeholder: `blurred`,
-          quality: 75,
-          breakpoints: [750, 1080, 1366, 1920],
-          backgroundColor: `transparent`,
-        },
-        failOnError: true,
-        stripMetadata: true,
-        defaultQuality: 75,
-      },
-    },
+    `gatsby-plugin-sharp`,
     `gatsby-plugin-image`,
     {
       resolve: `gatsby-transformer-remark`,
       options: {
         plugins: [
           {
+            resolve: "gatsby-remark-relative-images",
+            options: {
+              name: "uploads",
+            },
+          },
+          {
             resolve: "gatsby-remark-copy-linked-files",
             options: {
-              ignoreFileExtensions: [`png`, `jpg`, `jpeg`, `bmp`, `tiff`, `webp`],
+              // destinationDir: "public",
+              ignoreFileExtensions: [`png`, `jpg`, `jpeg`, `bmp`, `tiff` ,`webp`],
+          
             },
           },
           {
@@ -63,12 +73,9 @@ module.exports = {
             options: {
               maxWidth: 1360,
               withWebp: true,
-              withAvif: true,
+              showCaptions: false,
               quality: 75,
-              loading: 'lazy',
-              linkImagesToOriginal: false,
-              showCaptions: true,
-              backgroundColor: 'transparent',
+              wrapperStyle: `margin: 7vw 0;`,
             },
           },
           {
@@ -78,10 +85,13 @@ module.exports = {
             },
           },
           `gatsby-remark-prismjs`,
+          `gatsby-remark-copy-linked-files`,
           `gatsby-remark-smartypants`,
+
         ],
       },
     },
+
     {
       resolve: "gatsby-plugin-netlify-cms",
       options: {
@@ -102,12 +112,21 @@ module.exports = {
     {
       resolve: `gatsby-plugin-purgecss`,
       options: {
-        printRejected: true,
-        develop: false,
-        tailwind: false,
-        purgeOnly: ['src/utils/css/']
-      }
+        printRejected: true, // Print removed selectors and processed file names
+        // develop: true, // Enable while using `gatsby develop`
+        // tailwind: true, // Enable tailwindcss support
+        // whitelist: ['whitelist'], // Don't remove this selector
+        // ignore: ['/ignored.css', 'prismjs/', 'docsearch.js/'], // Ignore files/folders
+        // purgeOnly : ['components/', '/main.css', 'bootstrap/'], // Purge only these files/folders
+      },
     },
+    // {
+    //   resolve: `gatsby-plugin-google-analytics`,
+    //   options: {
+    //     //trackingId: `ADD YOUR TRACKING ID HERE`,
+    //   },
+    // },
+    // `gatsby-plugin-feed`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -117,44 +136,14 @@ module.exports = {
         background_color: `#ffffff`,
         theme_color: `#ffffff`,
         display: `standalone`,
+        resolve: `gatsby-plugin-manifest`,
         icon: siteConfig.manifest_icon,
-        cache_busting_mode: 'query',
-        include_favicon: true,
-        legacy: true,
-        theme_color_in_head: true,
-        crossOrigin: `use-credentials`,
       },
     },
     `gatsby-plugin-netlify`,
-    {
-      resolve: 'gatsby-plugin-offline',
-      options: {
-        precachePages: ['/'],
-        appendScript: require.resolve(`./src/custom-sw-code.js`),
-        debug: true,
-        workboxConfig: {
-          globPatterns: ['**/*.{js,jpg,png,html,css}'],
-          runtimeCaching: [
-            {
-              urlPattern: /.+\.(js|css|static)/,
-              handler: 'CacheFirst'
-            },
-            {
-              urlPattern: /.+\.(png|jpg|jpeg|webp|avif|svg|gif|tiff)/,
-              handler: 'CacheFirst'
-            },
-            {
-              urlPattern: /\/page-data\/.+\json/,
-              handler: 'NetworkFirst'
-            }
-          ],
-          skipWaiting: true,
-          clientsClaim: true
-        }
-      }
-    },
+    `gatsby-plugin-offline`,
     `gatsby-plugin-react-helmet`,
-    `gatsby-plugin-sitemap`,
+    `gatsby-plugin-sitemap`
   ],
 }
 

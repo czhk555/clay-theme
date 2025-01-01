@@ -1,13 +1,16 @@
-module.exports = {
+const siteConfig = {
   name: 'Clay',
   shortName: 'Clay',
-  description: 'A Gatsby Theme',
-  url: 'https://clay-gatsby.netlify.app', // Domain of your site without prefix!
+  description: 'Clay - Personal Gatsby Theme',
+  url: '/', // Domain of your site without prefix!
   prefix: '/',
-  author: 'Clay',
-  twitter: '',
-  facebook: '',
-  github: '',
-  image: '/img/clay-images-11.jpg',
-  manifest_icon: 'src/img/clay-icon.png' // This path is relative to the root of the site.
+  author: 'Travis Lord & Abdul Waqar',
+  twitter: '' ,
+  facebook:'',
+  github:'',
+  manifest_icon:`src/img/vase.png`,
+  image:`/vase.png`
+
 }
+
+module.exports = siteConfig

@@ -49,9 +49,3 @@ tbody td {
 tfoot {
     border-width: 0;
 }
-
-/* 确保没有遗留的旧样式 */
-.gatsby-image-wrapper {
-    width: 100%;
-    height: auto;
-}

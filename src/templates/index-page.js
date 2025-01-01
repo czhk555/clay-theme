@@ -1,73 +1,91 @@
-import React from "react"
-import { graphql } from "gatsby"
+import React from "react";
+// import PropTypes from "prop-types";
+import { graphql } from "gatsby";
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import PostCard from "../components/postCard"
 
+// eslint-disable-next-line
 const IndexPage = ({ data }) => {
-  const posts = data.allMarkdownRemark.edges
-  let postCounter = 0
+    const siteTitle = data.site.siteMetadata.title
+    const social = data.site.siteMetadata.social
+    const posts = data.allMarkdownRemark.edges
+    let postCounter = 0
 
-  return (
-    <Layout>
-      <Seo title="Home" />
-      <div className="post-feed">
-        {posts.map(({ node }) => {
-          postCounter++
-          return (
-            <PostCard
-              key={node.fields.slug}
-              count={postCounter}
-              node={node}
-              postClass={`post`}
-            />
-          )
-        })}
-      </div>
-    </Layout>
-  )
+    return (
+        <Layout title={siteTitle} social={social}>
+            <Seo keywords={[`Gatsby Theme`, `Free Gatsby Template`, `Clay Gatsby Theme`]}
+                title={data.markdownRemark.frontmatter.title}
+                description={data.markdownRemark.frontmatter.description ||  ''}
+                image={data.markdownRemark.frontmatter.thumbnail.childImageSharp.fluid.src}
+
+            />           
+            <div className="post-feed">
+                {posts.map(({ node }) => {
+                    postCounter++
+                    return (
+                        <PostCard
+                            key={node.fields.slug}
+                            count={postCounter}
+                            node={node}
+                            postClass={`post`}
+                        />
+                    )
+                })}
+            </div>
+        </Layout>
+    )
 }
-
 export default IndexPage
-
-export const pageQuery = graphql`
-  query {
-    allMarkdownRemark(
-      filter: { frontmatter: { templateKey: { eq: "work-sub-page" } } }
-      sort: { frontmatter: { date: DESC } }
-    ) {
-      edges {
-        node {
-          excerpt
-          fields {
-            slug
+export const IndexPageQuery = graphql`
+  query IndexPage {
+    site {
+        siteMetadata {
+          title
+          social{
+            twitter
+            facebook
+          }    
+        }
+      }
+      markdownRemark(frontmatter: {templateKey: {eq: "index-page"}}) {
+        frontmatter {
+          title
+          description
+          thumbnail {
+            childImageSharp {
+              fluid(maxWidth: 1360) {
+                ...GatsbyImageSharpFluid
+              }
+            }
           }
-          frontmatter {
-            title
-            templateKey
-            date(formatString: "MMMM DD, YYYY")
-            description
-            thumbnail {
-              childImageSharp {
-                gatsbyImageData(
-                  width: 1360
-                  formats: [AUTO, WEBP, AVIF]
-                  placeholder: BLURRED
-                  layout: CONSTRAINED
-                  transformOptions: {
-                    fit: COVER
-                    cropFocus: ATTENTION
+        }
+        
+      }
+      allMarkdownRemark(
+        filter: {frontmatter: {pagetype: {eq: "main"}}}
+        limit: 30
+        sort: {frontmatter: {number: ASC}}
+      ) {
+        edges {
+          node {
+            fields {
+              slug
+            }
+            frontmatter {
+              date(formatString: "MMMM DD,YYYY")
+              title
+              description
+              thumbnail {
+                childImageSharp {
+                  fluid(maxWidth: 1360) {
+                    ...GatsbyImageSharpFluid
                   }
-                  quality: 75
-                  breakpoints: [750, 1080, 1366, 1920]
-                  backgroundColor: "transparent"
-                  sizes: "(max-width: 750px) 100vw, (max-width: 1080px) 50vw, 33vw"
-                )
+                }
               }
             }
           }
         }
       }
-    }
   }
-`
+`;

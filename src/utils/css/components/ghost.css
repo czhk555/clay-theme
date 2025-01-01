@@ -55,7 +55,6 @@
     .kg-width-full {
         width: 100vw;
     }
-
     .kg-width-full figcaption {
         padding-left: 6vw;
     }
@@ -93,21 +92,9 @@
     margin: 0 0 0 0.75em;
 }
 
-.kg-gallery-card+.kg-image-card.kg-width-wide,
-.kg-gallery-card+.kg-gallery-card,
-.kg-image-card.kg-width-wide+.kg-gallery-card,
-.kg-image-card.kg-width-wide+.kg-image-card.kg-width-wide {
-    margin-top: calc(-7vw + 0.75em);
-}
-
-/* 优化文章内图片样式 */
-.post-content img {
-    max-width: 100%;
-    height: auto;
-    margin: 2rem 0;
-}
-
-.post-content .gatsby-image-wrapper {
-    margin: 2rem 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+.kg-gallery-card + .kg-image-card.kg-width-wide,
+.kg-gallery-card + .kg-gallery-card,
+.kg-image-card.kg-width-wide + .kg-gallery-card,
+.kg-image-card.kg-width-wide + .kg-image-card.kg-width-wide {
+    margin-top: calc( -7vw + 0.75em );
 }
