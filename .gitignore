@@ -54,3 +54,4 @@ static/admin/*.bundle.*
 .env
 .env.*
 !.env.example
+.codegpt
