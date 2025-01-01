@@ -24,7 +24,7 @@ const IndexPage = ({ data }) => {
         keywords={[`Gatsby Theme`, `Free Gatsby Template`, `Clay Gatsby Theme`]}
         title={data.markdownRemark.frontmatter.title}
         description={data.markdownRemark.frontmatter.description || ''}
-        image={data.markdownRemark.frontmatter.thumbnail.childImageSharp.fluid.src}
+        image={data.markdownRemark.frontmatter.thumbnail.childImageSharp.gatsbyImageData.images.fallback.src}
         pathname={location.pathname}
         canonical={canonical}
         schemaMarkup={{
@@ -79,7 +79,7 @@ export const IndexPageQuery = graphql`
                 width: 1360
                 formats: [AUTO, WEBP, AVIF]
                 placeholder: BLURRED
-                loading: LAZY
+                layout: CONSTRAINED
               )
             }
           }
@@ -102,9 +102,12 @@ export const IndexPageQuery = graphql`
               description
               thumbnail {
                 childImageSharp {
-                  fluid(maxWidth: 1360) {
-                    ...GatsbyImageSharpFluid
-                  }
+                  gatsbyImageData(
+                    width: 1360
+                    formats: [AUTO, WEBP, AVIF]
+                    placeholder: BLURRED
+                    layout: CONSTRAINED
+                  )
                 }
               }
             }
