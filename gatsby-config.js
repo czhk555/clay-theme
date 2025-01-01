@@ -27,19 +27,16 @@ module.exports = {
       options: {
         plugins: [
           {
-            resolve: "gatsby-remark-relative-images",
-            options: {
-              name: "uploads",
-            },
-          },
-          {
             resolve: "gatsby-remark-images",
             options: {
               maxWidth: 1360,
-              withWebp: true, // Enable WebP format
+              withWebp: true,
               quality: 75,
               showCaptions: false,
               wrapperStyle: `margin: 7vw 0;`,
+              linkImagesToOriginal: false,
+              backgroundColor: 'transparent',
+              loading: 'lazy',
             },
           },
           `gatsby-remark-prismjs`,
