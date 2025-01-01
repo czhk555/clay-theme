@@ -47,7 +47,7 @@
     width: 100%;
 }
 
-.actions.fit li > * {
+.actions.fit li>* {
     width: 100%;
 }
 
@@ -69,7 +69,7 @@
         width: 100%;
     }
 
-    .actions:not(.fixed) li > * {
+    .actions:not(.fixed) li>* {
         width: 100%;
     }
 
@@ -92,4 +92,16 @@
     .actions:not(.fixed) li .button.icon:before {
         margin-left: -0.5rem;
     }
+}
+
+/* 更新链接样式 */
+.site-head-logo {
+    text-decoration: none;
+    color: inherit;
+    font-weight: bold;
+}
+
+.site-foot a {
+    color: inherit;
+    text-decoration: none;
 }

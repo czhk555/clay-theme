@@ -11,9 +11,9 @@ module.exports = {
     image: siteConfig.image,
     siteUrl: "https://clay-gatsby.netlify.app/",
     social: {
-      twitter: siteConfig.twitter,
-      facebook: siteConfig.facebook,
-      github: siteConfig.github,
+      twitter: siteConfig.twitter || '',
+      facebook: siteConfig.facebook || '',
+      github: siteConfig.github || '',
     },
   },
   plugins: [
@@ -173,7 +173,19 @@ module.exports = {
       }
     },
     `gatsby-plugin-react-helmet`,
-    `gatsby-plugin-sitemap`
+    `gatsby-plugin-sitemap`,
+    {
+      resolve: 'gatsby-plugin-svgr',
+      options: {
+        svgo: true,
+        svgoConfig: {
+          plugins: [
+            { name: 'removeViewBox', active: false },
+            { name: 'removeDimensions', active: true }
+          ]
+        }
+      }
+    }
   ],
 }
 
