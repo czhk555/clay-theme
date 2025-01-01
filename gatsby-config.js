@@ -64,8 +64,8 @@ module.exports = {
             resolve: "gatsby-remark-copy-linked-files",
             options: {
               // destinationDir: "public",
-              ignoreFileExtensions: [`png`, `jpg`, `jpeg`, `bmp`, `tiff` ,`webp`],
-          
+              ignoreFileExtensions: [`png`, `jpg`, `jpeg`, `bmp`, `tiff`, `webp`],
+
             },
           },
           {
@@ -112,13 +112,11 @@ module.exports = {
     {
       resolve: `gatsby-plugin-purgecss`,
       options: {
-        printRejected: true, // Print removed selectors and processed file names
-        // develop: true, // Enable while using `gatsby develop`
-        // tailwind: true, // Enable tailwindcss support
-        // whitelist: ['whitelist'], // Don't remove this selector
-        // ignore: ['/ignored.css', 'prismjs/', 'docsearch.js/'], // Ignore files/folders
-        // purgeOnly : ['components/', '/main.css', 'bootstrap/'], // Purge only these files/folders
-      },
+        printRejected: true,
+        develop: false,
+        tailwind: false,
+        purgeOnly: ['src/utils/css/']
+      }
     },
     // {
     //   resolve: `gatsby-plugin-google-analytics`,
@@ -141,7 +139,28 @@ module.exports = {
       },
     },
     `gatsby-plugin-netlify`,
-    `gatsby-plugin-offline`,
+    {
+      resolve: 'gatsby-plugin-offline',
+      options: {
+        precachePages: ['/'],
+        workboxConfig: {
+          runtimeCaching: [
+            {
+              urlPattern: /(\.js$|\.css$|static\/)/,
+              handler: 'CacheFirst',
+            },
+            {
+              urlPattern: /^https?:.*\/page-data\/.*\.json/,
+              handler: 'NetworkFirst',
+            },
+            {
+              urlPattern: /^https?:.*\.(png|jpg|jpeg|webp|avif|svg|gif|tiff|js|woff|woff2|json|css)$/,
+              handler: 'StaleWhileRevalidate',
+            }
+          ]
+        }
+      }
+    },
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sitemap`
   ],

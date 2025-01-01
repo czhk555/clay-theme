@@ -40,19 +40,19 @@ const ContactPage = ({ data }, location) => {
   return (
     <Layout title={siteTitle} social={social}>
       <Seo title={data.markdownRemark.frontmatter.title}
-        description={data.markdownRemark.frontmatter.description} 
+        description={data.markdownRemark.frontmatter.description}
         image={data.markdownRemark.frontmatter.thumbnail.childImageSharp.gatsbyImageData.images.fallback.src}
-        />
-     
+      />
+
       <article className="contact-form page-template ">
-      {data.markdownRemark.frontmatter.thumbnail && (
-        <div className="post-content-image">
-          <GatsbyImage
-            image={getImage(data.markdownRemark.frontmatter.thumbnail)}
-            className="kg-image"
-            alt={data.markdownRemark.frontmatter.title} />
-        </div>
-      )}
+        {data.markdownRemark.frontmatter.thumbnail && (
+          <div className="post-content-image">
+            <GatsbyImage
+              image={getImage(data.markdownRemark.frontmatter.thumbnail)}
+              className="kg-image"
+              alt={data.markdownRemark.frontmatter.title} />
+          </div>
+        )}
         <div className="post-content-body">
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Venenatis urna cursus eget nunc scelerisque. Nullam non nisi est sit amet facilisis. Quisque id diam vel quam. Morbi tincidunt augue interdum velit. Pellentesque adipiscing commodo elit at imperdiet dui accumsan. Adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque. Commodo odio aenean sed adipiscing diam donec adipiscing tristique risus. Mi tempus imperdiet nulla malesuada pellentesque. Maecenas ultricies mi eget mauris pharetra et ultrices. Cursus risus at ultrices mi tempus imperdiet nulla. Sit amet nisl suscipit adipiscing bibendum est ultricies. At volutpat diam ut venenatis tellus in. Cursus eget nunc scelerisque viverra mauris in. Ut aliquam purus sit amet luctus venenatis lectus.</p>
 
@@ -152,9 +152,9 @@ const ContactPage = ({ data }, location) => {
                   required={true}
                 />
               </div>
-              
+
               <div data-netlify-recaptcha="true"></div>
-  
+
               {/* Break */}
               <div className="col-12">
                 <ul className="actions">
@@ -261,12 +261,12 @@ export default props => (
 //         onSubmit={handleSubmit}
 //       >
 //         {/* The `form-name` hidden field is required to support form submissions without JavaScript */}
-        // <input type="hidden" name="form-name" value="contact" />
-        // <p hidden>
-        //   <label>
-        //     Don’t fill this out: <input name="bot-field" onChange={handleChange} />
-        //   </label>
-        // </p>
+// <input type="hidden" name="form-name" value="contact" />
+// <p hidden>
+//   <label>
+//     Don’t fill this out: <input name="bot-field" onChange={handleChange} />
+//   </label>
+// </p>
 //         <p>
 //           <label>
 //             Your name:
