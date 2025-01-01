@@ -13,7 +13,7 @@
     "gatsby-plugin-offline": "^5.0.0",
     "gatsby-plugin-netlify": "^5.0.0",
     "gatsby-plugin-purgecss": "^5.0.0",
-    "gatsby-plugin-postcss": "^5.0.0",
+    "gatsby-plugin-postcss": "^5.0.0"
   },
   "devDependencies": {
     "eslint": "^8.0.0",
