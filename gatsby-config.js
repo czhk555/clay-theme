@@ -74,7 +74,7 @@ module.exports = {
       options: {
         postCssPlugins: [
           require("autoprefixer"),
-          require("postcss-preset-env"),
+          require("postcss-preset-env"), // Enable modern CSS features
         ],
       },
     },
