@@ -1,10 +1,10 @@
 [build]
+  command = "npm ci"  # 使用 npm ci 来严格安装依赖
   publish = "public"
-  command = "npm run build"
-[build.environment]
-  NODE_VERSION = "18"
-  YARN_VERSION = "1.22.4"
-  YARN_FLAGS = "--no-ignore-optional"
+
+  [build.environment]
+  NODE_ENV = "production"
+
 
 
 [[headers]]
