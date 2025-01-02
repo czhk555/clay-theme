@@ -43,8 +43,6 @@ module.exports = {
         ],
       },
     },
-    // 确保 Gatsby 插件能正确处理离线缓存
-    `gatsby-plugin-netlify`,
     `gatsby-plugin-offline`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sitemap`,
