@@ -15,7 +15,7 @@
     "gatsby-plugin-purgecss": "^5.0.0",
     "gatsby-transformer-sharp": "^5.0.0",
     "react-helmet": "^6.1.0",
-    "postcss-preset-env": "^7.0.0",  // 确保添加此行
+    "postcss-preset-env": "^7.0.0",
     "autoprefixer": "^10.4.20",
     "postcss-easy-import": "^4.0.0",
     "postcss-color-function": "^4.1.0"
