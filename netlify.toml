@@ -1,18 +1,22 @@
 [build]
-  command = "yarn install"  # 使用 npm ci 或 yarn install
-  publish = "public"  # 发布目录
+  command = "gatsby build"
+  publish = "public"
 
-  [build.environment]
-  NODE_ENV = "production"
+[build.environment]
+  NODE_VERSION = "18"
+  YARN_VERSION = "1.22.19"
+  NPM_FLAGS = "--no-optional"
 
+[[plugins]]
+  package = "@netlify/plugin-gatsby"
 
-
+[[plugins]]
+  package = "@netlify/plugin-lighthouse"
 
 [[headers]]
   for = "/*"
   [headers.values]
     X-Frame-Options = "ALLOW-FROM https://builtatlightspeed.com, https://jamstackthemes.dev"
 
-    
 
 

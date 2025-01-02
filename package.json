@@ -26,10 +26,10 @@
     "pretty-quick": "^4.0.0"
   },
   "scripts": {
-    "build": "gatsby clean && gatsby build",
+    "build": "gatsby build",
     "develop": "gatsby clean && gatsby develop",
     "format": "prettier --write src/**/*.{js,jsx}",
-    "start": "gatsby clean && npm run develop",
+    "start": "gatsby develop",
     "serve": "gatsby serve",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
   },
