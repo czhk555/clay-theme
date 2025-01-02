@@ -1,5 +1,5 @@
 [build]
-  command = "npm ci"  # 使用 npm ci 或 yarn install
+  command = "yarn install"  # 使用 npm ci 或 yarn install
   publish = "public"  # 发布目录
 
   [build.environment]
