@@ -1,22 +1,16 @@
-import React, { Suspense, lazy } from "react";
-import { useLocation } from "@reach/router";
+import React from "react"
 
-// 使用 React.lazy 来懒加载 Layout 组件
-const Layout = lazy(() => import("../components/layout"));
-
-const MainLayout = ({ title, social, children }) => {
-  const location = useLocation();
-  const [toggleNav, setToggleNav] = React.useState(false);
-
-  const isCurrentPage = (path) => location.pathname.includes(path);
-
+const Layout = ({ location, title, children }) => {
   return (
-    <Suspense fallback={<div>Loading Layout...</div>}>
-      <Layout title={title} social={social}>
-        {children}
-      </Layout>
-    </Suspense>
-  );
-};
+    <div className="global-wrapper">
+      <main>{children}</main>
+      <footer>
+        <div className="footer-content">
+          © {new Date().getFullYear()} {title}
+        </div>
+      </footer>
+    </div>
+  )
+}
 
-export default MainLayout;
+export default Layout
