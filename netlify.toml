@@ -1,22 +1,17 @@
 [build]
-  command = "gatsby build"
   publish = "public"
-
+  command = "npm run build"
 [build.environment]
   NODE_VERSION = "18"
-  YARN_VERSION = "1.22.19"
-  NPM_FLAGS = "--no-optional"
+  YARN_VERSION = "1.22.4"
+  YARN_FLAGS = "--no-ignore-optional"
 
-[[plugins]]
-  package = "@netlify/plugin-gatsby"
-
-[[plugins]]
-  package = "@netlify/plugin-lighthouse"
 
 [[headers]]
   for = "/*"
   [headers.values]
     X-Frame-Options = "ALLOW-FROM https://builtatlightspeed.com, https://jamstackthemes.dev"
 
+    
 
 

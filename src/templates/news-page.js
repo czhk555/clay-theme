@@ -36,7 +36,7 @@ const WorkPage = ({ data }) => {
               key={node.fields.slug}
               count={postCounter}
               node={node}
-              postClass="post"
+              postClass={`post`}
             />
           )
         })}
