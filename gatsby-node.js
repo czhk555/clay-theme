@@ -15,6 +15,13 @@ exports.createSchemaCustomization = ({ actions }) => {
       templateKey: String
       pagetype: String
       number: Int
+      description: String
+      thumbnail: File @fileByRelativePath
+      image: File @fileByRelativePath
+      tags: [String]
+      author: String
+      category: String
+      featured: Boolean
     }
     type Fields {
       slug: String!
