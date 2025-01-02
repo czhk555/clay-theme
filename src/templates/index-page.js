@@ -70,7 +70,7 @@ export const IndexPageQuery = graphql`
     allMarkdownRemark(
       filter: { frontmatter: { pagetype: { eq: "main" } } }
       limit: 30
-      sort: {fields: frontmatter.date, order: DESC}
+      sort: {frontmatter___date: DESC}
     ) {
       edges {
         node {

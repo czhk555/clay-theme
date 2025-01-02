@@ -73,7 +73,7 @@ query IndexPage {
   allMarkdownRemark(
     filter: {frontmatter: {templateKey: {eq: "blog-post"}}}
     limit: 30
-    sort: {fields: frontmatter.date, order: DESC}
+    sort: {frontmatter___date: DESC}
   ) {
     edges {
       node {
