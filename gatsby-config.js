@@ -29,16 +29,10 @@ module.exports = {
       options: {
         plugins: [
           {
-            resolve: "gatsby-remark-relative-images",
-            options: {
-              name: "uploads",
-            },
-          },
-          {
             resolve: "gatsby-remark-images",
             options: {
               maxWidth: 1360,
-              withWebp: true, // 启用 WebP 格式
+              withWebp: true,
               quality: 75,
               showCaptions: false,
               wrapperStyle: `margin: 7vw 0;`,
