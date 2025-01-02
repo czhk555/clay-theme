@@ -12,6 +12,7 @@ module.exports = {
     },
   },
   plugins: [
+    // 确保 Gatsby 能正确获取本地图片文件
     {
       resolve: "gatsby-source-filesystem",
       options: {
@@ -19,6 +20,16 @@ module.exports = {
         name: "uploads",
       },
     },
+    // Google Fonts 延迟加载
+    {
+      resolve: "gatsby-plugin-web-font-loader",
+      options: {
+        google: {
+          families: ["Muli:400,400i,600,700,700i,800"], // 自定义字体
+        },
+      },
+    },
+    // 图片优化插件
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     `gatsby-plugin-image`,
@@ -27,16 +38,19 @@ module.exports = {
       options: {
         plugins: [
           {
+            resolve: "gatsby-remark-relative-images",
+            options: {
+              name: "uploads",
+            },
+          },
+          {
             resolve: "gatsby-remark-images",
             options: {
               maxWidth: 1360,
-              withWebp: true,
+              withWebp: true, // 启用 WebP 格式
               quality: 75,
               showCaptions: false,
               wrapperStyle: `margin: 7vw 0;`,
-              linkImagesToOriginal: false,
-              backgroundColor: 'transparent',
-              loading: 'lazy',
             },
           },
           `gatsby-remark-prismjs`,
@@ -44,6 +58,7 @@ module.exports = {
         ],
       },
     },
+    // 确保 Gatsby 插件能正确处理离线缓存
     `gatsby-plugin-netlify`,
     `gatsby-plugin-offline`,
     `gatsby-plugin-react-helmet`,
@@ -59,7 +74,7 @@ module.exports = {
       options: {
         postCssPlugins: [
           require("autoprefixer"),
-          require("postcss-preset-env"), // Enable modern CSS features
+          require("postcss-preset-env"), // 使用现代 CSS 特性
         ],
       },
     },
