@@ -20,15 +20,6 @@ module.exports = {
         name: "uploads",
       },
     },
-    // Google Fonts 延迟加载
-    {
-      resolve: "gatsby-plugin-web-font-loader",
-      options: {
-        google: {
-          families: ["Muli:400,400i,600,700,700i,800"], // 自定义字体
-        },
-      },
-    },
     // 图片优化插件
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
