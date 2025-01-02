@@ -39,7 +39,7 @@
   },
   "scripts": {
     "build": "gatsby build",
-    "develop": "gatsby clean && gatsby develop",
+    "develop": "rm -rf .cache public node_modules && npm install && gatsby develop",
     "format": "prettier --write src/**/*.{js,jsx}",
     "start": "gatsby develop",
     "serve": "gatsby serve",
