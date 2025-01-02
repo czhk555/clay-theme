@@ -31,7 +31,7 @@ exports.createPages = ({ graphql, actions }) => {
       {
         allMarkdownRemark(
           limit: 1000, 
-          sort: {fields: ["frontmatter___date"], order: DESC}
+          sort: {frontmatter: {date: DESC}}
         ) {
           edges {
             node {
@@ -49,7 +49,28 @@ exports.createPages = ({ graphql, actions }) => {
         }
       }
     `
-  )
+  ).then(result => {
+    if (result.errors) {
+      throw result.errors
+    }
+
+    // Create pages from markdown files
+    const posts = result.data.allMarkdownRemark.edges
+
+    posts.forEach(edge => {
+      const id = edge.node.id
+      createPage({
+        path: edge.node.fields.slug,
+        component: path.resolve(
+          `src/templates/${String(edge.node.frontmatter.templateKey)}.js`
+        ),
+        // additional data can be passed via context
+        context: {
+          id,
+        },
+      })
+    })
+  })
 }
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
